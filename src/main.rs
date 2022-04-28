@@ -1,4 +1,5 @@
 use std::{thread, time};
+use std::env;
 
 fn clearscreen() {
     thread::spawn(|| {
@@ -10,6 +11,9 @@ fn clearscreen() {
 }
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    let comment = &args[1];
+
     let mut second: i16 = 0;
     let mut minute: i16 = 0;
     let mut hour: i16 = 0;
@@ -17,7 +21,7 @@ fn main() {
 
     loop {
         thread::sleep(time::Duration::from_secs(1));
-        println!("{}h:{}m:{}s", hour, minute, second);
+        println!("{}h:{}m:{}s ({})", hour, minute, second, comment);
         second = second + 1;
         if second > 59 { // if greater than 59
             second = 0;
