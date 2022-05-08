@@ -14,7 +14,7 @@ fn clearscreen() {
 fn main() {
     let args: Vec<String> = env::args().collect();
     let mut is_there_a_comment;
-    let mut comment;
+    let mut comment = "a";
     match args.len() {
         1 => is_there_a_comment = false,
         2 => {
@@ -36,7 +36,12 @@ fn main() {
 
     loop {
         thread::sleep(time::Duration::from_secs(1));
-        println!("{}d:{}h:{}m:{}s ({})", days, hour, minute, second, comment);
+        if is_there_a_comment == true {
+            println!("{}d:{}h:{}m:{}s ({})", days, hour, minute, second, comment);
+        }
+        else {
+            println!("{}d:{}h:{}m:{}s", days, hour, minute, second);
+        }
         second = second + 1;
         if second > 59 { // if greater than 59
             second = 0;
