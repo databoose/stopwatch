@@ -14,14 +14,15 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let comment = &args[1];
 
-    let mut second: i16 = 0;
-    let mut minute: i16 = 0;
-    let mut hour: i16 = 0;
+    let mut second: u16 = 0;
+    let mut minute: u16 = 0;
+    let mut hour: u16 = 0;
+    let mut days: u8 = 0;
     clearscreen();
 
     loop {
         thread::sleep(time::Duration::from_secs(1));
-        println!("{}h:{}m:{}s ({})", hour, minute, second, comment);
+        println!("{}d:{}h:{}m:{}s ({})", days, hour, minute, second, comment);
         second = second + 1;
         if second > 59 { // if greater than 59
             second = 0;
@@ -29,6 +30,10 @@ fn main() {
             if minute > 59 {
                 minute = 0;
                 hour = hour + 1;
+                if hour > 24 {
+                	hour = 0;
+                	days = days + 1;
+                }
             }
         }
     }
