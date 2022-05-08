@@ -1,5 +1,6 @@
 use std::{thread, time};
 use std::env;
+use std::process;
 
 fn clearscreen() {
     thread::spawn(|| {
@@ -12,7 +13,20 @@ fn clearscreen() {
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let comment = &args[1];
+    let mut is_there_a_comment;
+    let mut comment;
+    match args.len() {
+        1 => is_there_a_comment = false,
+        2 => {
+            comment = &args[1];
+            is_there_a_comment = true;
+        },
+        _ => {
+            println!("Error : passed too many arguments");
+            println!("Use the entire comment encased in quotation marks to set a comment");
+            process::exit(0);
+        }
+    }
 
     let mut second: u16 = 0;
     let mut minute: u16 = 0;
