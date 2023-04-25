@@ -2,24 +2,16 @@ use std::{thread, time};
 use std::env;
 use std::process;
 
-fn clearscreen() {
-    thread::spawn(|| {
-    loop {
-        thread::sleep(time::Duration::from_millis(700));
-        print!("\x1B[2J\x1B[1;1H");
-    }
-    });
-}
-
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let mut is_there_a_comment;
-    let mut comment = "a";
+    let mut comment_exists;
+    let mut comment = "";
+
     match args.len() {
-        1 => is_there_a_comment = false,
+        1 => comment_exists = false,
         2 => {
             comment = &args[1];
-            is_there_a_comment = true;
+            comment_exists = true;
         },
         _ => {
             println!("Error : passed too many arguments");
@@ -32,11 +24,10 @@ fn main() {
     let mut minute: u16 = 0;
     let mut hour: u16 = 0;
     let mut days: u8 = 0;
-    clearscreen();
 
     loop {
-        thread::sleep(time::Duration::from_secs(1));
-        if is_there_a_comment == true {
+        print!("\x1B[2J\x1B[1;1H"); // clear screen
+        if comment_exists == true {
             println!("{}d:{}h:{}m:{}s ({})", days, hour, minute, second, comment);
         }
         else {
@@ -55,5 +46,6 @@ fn main() {
                 }
             }
         }
+        thread::sleep(time::Duration::from_secs(1));
     }
 }
