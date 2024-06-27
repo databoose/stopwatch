@@ -36,15 +36,15 @@ fn main() {
         second = second + 1;
         if second > 59 { // if greater than 59
             second = 0;
-            minute = minute + 1;
             if minute > 59 {
                 minute = 0;
-                hour = hour + 1;
-                if hour > 24 {
+                if hour > 23 {
                 	hour = 0;
                 	days = days + 1;
                 }
+                else { hour = hour + 1;}
             }
+            else { minute = minute + 1; }
         }
         thread::sleep(time::Duration::from_secs(1));
     }
