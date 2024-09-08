@@ -11,7 +11,7 @@ fn main() {
 
     loop {
         print!("\x1B[2J\x1B[1;1H"); // clear screen
-        println!("{}d:{}h:{}m:{}s ({:?})", days, hour, minute, second, args);
+        println!("{}d:{}h:{}m:{}s ({:?})", days, hour, minute, second, args[1]);
         second = second + 1;
         if second > 59 { // if greater than 59
             second = 0;
